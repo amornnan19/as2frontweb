@@ -33,16 +33,40 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'address' => ['required', 'string', 'max:255'],
+            'province' => ['required', 'string', 'max:255'],
+            'district' => ['required', 'string', 'max:255'],
+            'sub_district' => ['required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'max:255'],
+            'accept_announcement' => ['required', 'boolean'],
         ]);
     }
 
-
     protected function create(array $data)
     {
+        $profileImagePath = null;
+
+        if (isset($data['profile_image'])) {
+            $profileImagePath = $data['profile_image']->store('profile_images', 'public');
+        }
+
         return User::create([
             'name' => $data['name'],
             'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
+            'profile_image' => $profileImagePath,
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'email' => $data['email'],
+            'address' => $data['address'],
+            'province' => $data['province'],
+            'district' => $data['district'],
+            'sub_district' => $data['sub_district'],
+            'postal_code' => $data['postal_code'],
+            'accept_announcement' => $data['accept_announcement'],
         ]);
     }
 }

@@ -14,6 +14,12 @@
         <p>You are logged in!</p>
         <p>Name: {{ $user->name }}</p>
         <p>Phone: {{ $user->phone }}</p>
+
+        <!-- Logout Button -->
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+            @csrf
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
     </div>
 </body>
 
