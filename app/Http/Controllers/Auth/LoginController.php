@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    protected $redirectTo = '/home';
+
     public function showLoginForm()
     {
         return view('auth.login');
@@ -24,11 +26,16 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('dashboard');
+            return redirect()->intended($this->redirectPath());
         }
 
         return back()->withErrors([
             'phone' => 'The provided credentials do not match our records.',
         ]);
+    }
+
+    protected function redirectPath()
+    {
+        return $this->redirectTo;
     }
 }
