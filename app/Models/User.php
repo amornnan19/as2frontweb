@@ -30,6 +30,8 @@ class User extends Authenticatable
         'postal_code',
         'accept_announcement',
         'profile_image',
+        'role',
+        'dealer',
     ];
 
 

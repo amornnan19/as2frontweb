@@ -67,6 +67,9 @@ class RegisterController extends Controller
             'sub_district' => $data['sub_district'],
             'postal_code' => $data['postal_code'],
             'accept_announcement' => $data['accept_announcement'],
+            'role' => 'customer',
+            'dealer' => null,
+
         ]);
     }
 }
