@@ -8,13 +8,19 @@ use Illuminate\Http\Request;
 
 class DroneRegistrationController extends Controller
 {
+
+    public function index()
+    {
+        return view('drone-registration');
+    }
+
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
 
         $this->create($request->all());
 
-        return redirect()->intended('registration_success');
+        return redirect()->intended('home');
     }
 
     protected function validator(array $data)

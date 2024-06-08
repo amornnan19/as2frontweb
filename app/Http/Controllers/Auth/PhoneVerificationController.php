@@ -6,11 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\PhoneOtpVerification;
+use App\Models\SiteUser;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class PhoneVerificationController extends Controller
 {
+    public function index()
+    {
+        return view('auth.request-otp');
+    }
+
+    public function verify()
+    {
+        return view('auth.verify-otp');
+    }
+
+
     public function requestOtp(Request $request)
     {
         $request->validate([
@@ -18,7 +31,7 @@ class PhoneVerificationController extends Controller
         ]);
 
         $phone_number = $request->phone_number;
-        $otp = rand(100000, 999999); // Generate a 6-digit OTP
+        $otp = rand(100000, 999999);
 
         PhoneOtpVerification::updateOrCreate(
             ['phone_number' => $phone_number],
@@ -28,10 +41,7 @@ class PhoneVerificationController extends Controller
             ]
         );
 
-        // Send OTP via SMS (using a service like Twilio, Nexmo, etc.)
-        // Example: Twilio::message($phone_number, "Your OTP is $otp");
-
-        return response()->json(['message' => 'OTP sent successfully.']);
+        return redirect()->back()->withInput()->with('phone_number', $phone_number);
     }
 
     public function verifyOtp(Request $request)
@@ -54,13 +64,13 @@ class PhoneVerificationController extends Controller
         }
 
         // Log in the user or create a new user if not exists
-        $user = User::firstOrCreate(['phone' => $phone_number]);
+        $user = SiteUser::firstOrCreate(['phone' => $phone_number]);
 
         Auth::login($user);
 
         // Delete the OTP record after successful verification
         $verification->delete();
 
-        return response()->json(['message' => 'Logged in successfully.', 'user' => $user]);
+        return redirect()->intended('/register');
     }
 }

@@ -56,10 +56,10 @@
                                 <!-- Part 2: Picture Upload -->
                                 <h2>Part 2: Picture Upload</h2>
                                 <div class="form-group">
-                                    <label for="drone_photo">Drone Photography</label>
-                                    <input type="file" class="form-control-file" id="drone_photo" name="drone_photo"
+                                    <label for="drone_photography">Drone Photography</label>
+                                    <input type="file" class="form-control-file" id="drone_photography" name="drone_photography"
                                         accept="image/*" onchange="previewFile(this.id)">
-                                    <div id="drone_photo-preview"></div>
+                                    <div id="drone_photography-preview"></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="remote_photo">remote_photo</label>

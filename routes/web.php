@@ -9,7 +9,7 @@ use App\Http\Controllers\DroneRegistrationController;
 use App\Http\Controllers\Auth\PhoneVerificationController;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.request-otp');
 });
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -28,6 +28,7 @@ Route::post('logout', function () {
 Route::get('drone-registration', [DroneRegistrationController::class, 'index'])->name('drone.registration');
 Route::post('drone-registration', [DroneRegistrationController::class, 'register'])->name('drone.register');
 
+Route::get('/request-otp', [PhoneVerificationController::class, 'index'])->name('request-otp');
 Route::post('/request-otp', [PhoneVerificationController::class, 'requestOtp']);
 Route::post('/verify-otp', [PhoneVerificationController::class, 'verifyOtp']);
 
