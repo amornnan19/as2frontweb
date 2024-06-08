@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="container mt-5">
+    {{-- <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
@@ -40,7 +40,22 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
+    <!-- Request OTP Form -->
+    <form method="POST" action="/request-otp">
+        @csrf
+        <input type="text" name="phone_number" placeholder="Enter phone number">
+        <button type="submit">Request OTP</button>
+    </form>
+
+    <!-- Verify OTP Form -->
+    <form method="POST" action="/verify-otp">
+        @csrf
+        <input type="text" name="phone_number" placeholder="Enter phone number">
+        <input type="text" name="otp" placeholder="Enter OTP">
+        <button type="submit">Verify OTP</button>
+    </form>
+
 </body>
 
 </html>
