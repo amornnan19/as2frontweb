@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DroneRegistrationController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -18,9 +19,12 @@ Route::post('register', [RegisterController::class, 'register']);
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
-
-
 Route::post('logout', function () {
     Auth::logout();
     return redirect('/login');
 })->name('logout');
+
+
+
+Route::get('drone-registration', [DroneRegistrationController::class, 'index'])->name('drone.registration');
+Route::post('drone-registration', [DroneRegistrationController::class, 'register'])->name('drone.register');
